@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import InputNumber from './components/InputNumber';
+import confirm from './components/Confirm'
 export default class App extends Component {
   
   constructor(props) {
@@ -21,6 +22,14 @@ export default class App extends Component {
         </div>
       </div>
     )
+  }
+  componentDidMount(){
+    let res = confirm("确定删除吗?")
+    if(res) {
+        console.log("是")
+    } else {
+        console.log("否")
+    }
   }
 }
 
