@@ -5,8 +5,17 @@ import Icon from '../Icon'
 import MyButton from '../MyButton'
 import PropTypes, { func } from 'prop-types'
 import './index.scss'
-let p
-let promiseHandler = function() {}
+let p = new Promise((resolve,reject) => {
+  function handler(e) {
+    console.log(this)
+    // if (somethingRight) {
+    //     resolve(e);
+    // } else {
+    //     reject(e);
+    // }
+  }
+})
+
 
 export class Confirm extends Component {
   static propTypes = {
@@ -25,7 +34,7 @@ export class Confirm extends Component {
   show = () => {
     console.log('show')
     this.setState({ visible: true })
-    promiseHandler()
+    handler()
     
   }
   cancel = () => {
@@ -71,17 +80,7 @@ export default async function confirm(msg) {
   document.body.appendChild(node)
   await ReactDOM.render(<Confirm msg={msg}/>, node, function() {
     console.log(11111)
-    p = new Promise(function(resolve,reject) {
-      promiseHandler =function (e) {
-        console.log('3333')
-        console.log(this)
-        // if (somethingRight) {
-        //     resolve(e);
-        // } else {
-        //     reject(e);
-        // }
-      }
-    })
+    
   })
   await console.log(2222)
   console.log(p)
