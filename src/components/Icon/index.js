@@ -10,7 +10,6 @@ export default class Icon extends Component {
     name: ''
   }
   render() {
-    console.log(this.props.name )
     const {
       name,
       ...rest

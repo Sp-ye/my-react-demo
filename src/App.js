@@ -23,8 +23,9 @@ export default class App extends Component {
       </div>
     )
   }
-  componentDidMount(){
-    let res = confirm("确定删除吗?")
+  async componentDidMount(){
+    let res = await confirm("确定删除吗?")
+    console.log(res)
     if(res) {
         console.log("是")
     } else {
