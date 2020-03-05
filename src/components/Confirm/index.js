@@ -23,9 +23,7 @@ export class Confirm extends Component {
     }
   }
   show = () => {
-    console.log('show')
     this.setState({ visible: true })
-    
   }
   cancel = () => {
     this.setState({ visible: false })
