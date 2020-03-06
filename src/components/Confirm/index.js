@@ -15,28 +15,8 @@ export class Confirm extends Component {
   static defaultProps = {
     title: '提示'
   }
-  constructor(props) {
-    super(props);
-    
-    this.state = {
-      visible: true
-    }
-  }
-  show = () => {
-    this.setState({ visible: true })
-  }
-  cancel = () => {
-    this.setState({ visible: false })
-  }
 
-  confirm = () => {
-    this.setState({ visible: false })
-  }
-  componentDidMount() {
-    // this.show()
-  }
   render() {
-    if(!this.state.visible) return null;
     return (
       <Modal>
         <div className="my-confirm">
@@ -49,8 +29,8 @@ export class Confirm extends Component {
             </div>
             <div className="my-confirm__body"><p>{this.props.msg}</p></div>
             <div className="my-confirm__footer">
-              <MyButton id="my-confirm__footer__cancelBtn" className="my-confirm__footer__cancelBtn" title="取消" onClick={this.cancel}/>
-              <MyButton id="my-confirm__footer__confirmBtn" title="确定" type="primary" onClick={this.confirm}/>
+              <MyButton id="my-confirm__footer__cancelBtn" className="my-confirm__footer__cancelBtn" title="取消"/>
+              <MyButton id="my-confirm__footer__confirmBtn" title="确定" type="primary"/>
             </div>
           </div>
         </div>
@@ -65,17 +45,20 @@ export default async function confirm(msg) {
   let p
   node = document.createElement('div')
   document.body.appendChild(node)
-  await ReactDOM.render(<Confirm msg={msg}/>, node, function() {
+  await ReactDOM.render(<Confirm msg={msg} />, node, function() {
     p = new Promise((resolve,reject) => {
       const cancelBtn = document.getElementById("my-confirm__footer__cancelBtn")
       const confirmBtn = document.getElementById("my-confirm__footer__confirmBtn")
       cancelBtn.addEventListener('click', () => {
+      document.body.removeChild(node)
         reject('取消')
       })
       confirmBtn.addEventListener('click', () => {
+        document.body.removeChild(node)
         resolve('确认')
       })
     }).catch( e => {
+      console.log('catch: ', e)
     })
   })
   return p
